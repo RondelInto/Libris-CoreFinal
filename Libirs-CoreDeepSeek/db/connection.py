@@ -1,0 +1,19 @@
+# db/connection.py
+import mysql.connector
+from mysql.connector import Error
+from config import DB_CONFIG
+
+def get_connection():
+    try:
+        conn = mysql.connector.connect(
+            host=DB_CONFIG['host'],
+            user=DB_CONFIG['user'],
+            password=DB_CONFIG['password'],
+            database=DB_CONFIG['database'],
+            port=DB_CONFIG['port']
+        )
+        if conn.is_connected():
+            return conn
+    except Error as e:
+        print(f"Error connecting to MySQL: {e}")
+        return None
